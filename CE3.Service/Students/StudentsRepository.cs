@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using CE3.Service.Data;
+using CE3.Service.Exceptions;
 
 namespace CE3.Service.Students
 {
@@ -24,24 +25,60 @@ namespace CE3.Service.Students
 			_universityDbFactory = universityDbFactory;
 		}
 
-		public Task<Student> ChangeLastName(int id, string newLastName)
+		public async Task<Student> ChangeLastName(int id, string newLastName)
 		{
-			throw new NotImplementedException();
+			var dbContext = _universityDbFactory.GetDbContext();
+			var student = dbContext.Students.FirstOrDefault(s => s.Id == id);
+			student.LastName = newLastName;
+
+			var existingStudent = await GetStudent(student.FirstName, student.LastName);
+			if (existingStudent != null)
+			{
+				throw new InvalidOperationException();
+			}
+			var result = await dbContext.SaveChangesAsync();
+			return student;
+			//throw new NotImplementedException();
 		}
 
-		public Task<Student> CreateStudent(Student student)
+		public async Task<Student> CreateStudent(Student student)
 		{
-			throw new NotImplementedException();
+			var dbContext = _universityDbFactory.GetDbContext();
+			var existingStudent = await GetStudent(student.FirstName, student.LastName);
+			if (existingStudent != null)
+			{
+				throw new InvalidOperationException();
+			}
+			var newStudent = dbContext.Students.Add(student);
+			await dbContext.SaveChangesAsync();
+			return newStudent;
+
+			//throw new NotImplementedException();
 		}
 
-		public Task<Student> GetStudent(int id)
+		public async Task<Student> GetStudent(int id)
 		{
-			throw new NotImplementedException();
+			var dbContext = _universityDbFactory.GetDbContext();
+			var student = await dbContext.Students.FirstOrDefaultAsync(s => s.Id == id);
+			if (student == null)
+			{
+				throw new NotFoundException();
+			}
+			return student;
+
+			//throw new NotImplementedException();
 		}
 
-		public Task<Student> GetStudent(string firstName, string lastName)
+		public async Task<Student> GetStudent(string firstName, string lastName)
 		{
-			throw new NotImplementedException();
+			var dbContext = _universityDbFactory.GetDbContext();
+			var student = dbContext.Students.FirstOrDefault(s => s.FirstName == firstName && s.LastName == lastName);
+			if (student == null)
+			{
+				throw new NotFoundException();
+			}
+			return student;
+			//throw new NotImplementedException();
 		}
 	}
 }
