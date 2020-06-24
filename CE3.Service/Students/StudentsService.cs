@@ -23,22 +23,28 @@ namespace CE3.Service.Students
 
 		public Task<Student> ChangeLastName(string firstName, string originalLastName, string newLastName)
 		{
-			throw new NotImplementedException();
+            //throw new NotImplementedException();
+            var existingStudent = _studentsRepository.GetStudent(firstName, originalLastName);
+            var res = _studentsRepository.ChangeLastName(existingStudent.Id, newLastName);
+            return res;
 		}
 
 		public Task<Student> CreateStudent(Student student)
 		{
-			throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return _studentsRepository.CreateStudent(student);
 		}
 
 		public Task<Student> GetStudent(int id)
 		{
-			throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return _studentsRepository.GetStudent(id);
 		}
 
 		public Task<Student> GetStudent(string firstName, string lastName)
 		{
-			throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return _studentsRepository.GetStudent(firstName, lastName);
 		}
 	}
 }
