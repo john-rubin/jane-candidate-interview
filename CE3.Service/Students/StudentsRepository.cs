@@ -29,14 +29,28 @@ namespace CE3.Service.Students
 			throw new NotImplementedException();
 		}
 
-		public Task<Student> CreateStudent(Student student)
+		public async Task<Student> CreateStudent(Student student)
 		{
-			throw new NotImplementedException();
+            using (var uniDbContext = _universityDbFactory.GetDbContext())
+            {
+
+				//validation here, skip for now
+
+				var newStudent = uniDbContext.Students.Add(student);
+				await uniDbContext.SaveChangesAsync();
+
+					return newStudent;
+
+            }
 		}
 
-		public Task<Student> GetStudent(int id)
+		public async Task<Student> GetStudent(int id)
 		{
-			throw new NotImplementedException();
+            using (var uniDbContext = _universityDbFactory.GetDbContext())
+            {
+				return await uniDbContext.Students.FirstOrDefaultAsync(s => s.Id.Equals(id));
+
+            }
 		}
 
 		public Task<Student> GetStudent(string firstName, string lastName)

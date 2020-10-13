@@ -31,9 +31,17 @@ namespace CE3.Service.Students
 			throw new NotImplementedException();
 		}
 
-		public Task<Student> GetStudent(int id)
+		public async Task<Student> GetStudent(int id)
 		{
-			throw new NotImplementedException();
+			if (id <= 0)
+            {
+				throw new Exception("Invalid ID Request");
+            }
+
+
+			var student = await _studentsRepository.GetStudent(id);
+
+			return student;
 		}
 
 		public Task<Student> GetStudent(string firstName, string lastName)
