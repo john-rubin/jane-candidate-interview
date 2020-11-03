@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,24 +24,41 @@ namespace CE3.Service.Students
 			_universityDbFactory = universityDbFactory;
 		}
 
-		public Task<Student> ChangeLastName(int id, string newLastName)
+		public async Task<Student> ChangeLastName(int id, string newLastName)
 		{
-			throw new NotImplementedException();
+            		using (var context = _universityDbFactory.GetDbContext())
+           		 {
+              		  var response = context.Students.Find(id);
+             		  response.LastName = newLastName;
+           		  await context.SaveChangesAsync();
+            		  return response;
+            		 }
+        	}
+
+		public async Task<Student> CreateStudent(Student student)
+		{
+            		using (var context = _universityDbFactory.GetDbContext())
+            		{
+                		var response = context.Students.Add(student);
+                		await context.SaveChangesAsync();
+                		return response;
+            		}
 		}
 
-		public Task<Student> CreateStudent(Student student)
+		public async Task<Student> GetStudent(int id)
 		{
-			throw new NotImplementedException();
+            		using (var context = _universityDbFactory.GetDbContext())
+            		{
+                		return await context.Students.FindAsync(id);
+            		}
 		}
 
-		public Task<Student> GetStudent(int id)
+		public async Task<Student> GetStudent(string firstName, string lastName)
 		{
-			throw new NotImplementedException();
-		}
-
-		public Task<Student> GetStudent(string firstName, string lastName)
-		{
-			throw new NotImplementedException();
-		}
+            		using (var context = _universityDbFactory.GetDbContext())
+            		{
+                		return await context.Students.AsNoTracking().FirstOrDefaultAsync(stud=>stud.firstName == firstName && stud.LastName==lastName);
+            		}
+        	}
 	}
 }
