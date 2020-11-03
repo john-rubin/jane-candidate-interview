@@ -57,7 +57,7 @@ namespace CE3.Service.Students
 		{
             		using (var context = _universityDbFactory.GetDbContext())
             		{
-                		return await context.Students.AsNoTracking().FirstOrDefaultAsync(stud=>stud.firstName == firstName && stud.LastName==lastName);
+                		return await context.Students.Where(stud=>stud.FirstName==firstName && stud.LastName==lastName).FirstOrDefaultAsync();                
             		}
         	}
 	}
