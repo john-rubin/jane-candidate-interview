@@ -21,23 +21,23 @@ namespace CE3.Service.Students
 			_studentsRepository = studentsRepository;
 		}
 
-		public Task<Student> ChangeLastName(string firstName, string originalLastName, string newLastName)
+		public async Task<Student> ChangeLastName(string firstName, string originalLastName, string newLastName)
 		{
 			 var response = await _studentsRepository.GetStudent(firstName, originalLastName);
             		return await _studentsRepository.ChangeLastName(response.Id, newLastName);
 		}
 
-		public Task<Student> CreateStudent(Student student)
+		public async Task<Student> CreateStudent(Student student)
 		{
 			return await _studentsRepository.CreateStudent(student);
 		}
 
-		public Task<Student> GetStudent(int id)
+		public async Task<Student> GetStudent(int id)
 		{
 			return await _studentsRepository.GetStudent(id);
 		}
 
-		public Task<Student> GetStudent(string firstName, string lastName)
+		public async Task<Student> GetStudent(string firstName, string lastName)
 		{
 			return await _studentsRepository.GetStudent(id);
 		}
