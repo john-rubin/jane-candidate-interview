@@ -24,15 +24,28 @@ namespace CE3.Service.Students
 			_universityDbFactory = universityDbFactory;
 		}
 
-		public Task<Student> ChangeLastName(int id, string newLastName)
-		{
-			throw new NotImplementedException();
+        public async Task<Student> ChangeLastName(int id, string newLastName)
+        {
+            using (var dbContext = _universityDbFactory.GetDbContext())
+            {
+                var student = dbContext.Students.FirstOrDefault(s => s.Id == id);
+                student.LastName = newLastName;
+                await dbContext.SaveChangesAsync();
+
+                return student;
+            }
 		}
 
-		public Task<Student> CreateStudent(Student student)
-		{
-			throw new NotImplementedException();
-		}
+        public async Task<Student> CreateStudent(Student student)
+        {
+            using (var dbContext = _universityDbFactory.GetDbContext())
+            {
+                dbContext.Students.Add(student);
+                await dbContext.SaveChangesAsync();
+            }
+
+            return student;
+        }
 
 		public Task<Student> GetStudent(int id)
 		{
