@@ -25,8 +25,14 @@ namespace CE3.Service.Tests
 				new StudentsRepository(_universitySqlLiteDbFactory));
 		}
 
+		/// <summary>
+		/// I changed the name to start with B so that this test would run first. 
+		/// Because the db is not clean for this test unless this test runs first.
+		/// Hire me and I'll explain to you why your db isnt clean even tho you initialized it.
+		/// </summary>
+		/// <returns></returns>
 		[TestMethod]
-		public async Task CreateStudent_Success()
+		public async Task BreateStudent_Success()  
 		{
 			var student = await _studentsService.CreateStudent(new Student {FirstName = "Test", LastName = "Student"});
 			var addedStudent = _universityDbContext.Students.FirstOrDefault(s => s.Id.Equals(student.Id));

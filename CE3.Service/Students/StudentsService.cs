@@ -21,24 +21,40 @@ namespace CE3.Service.Students
 			_studentsRepository = studentsRepository;
 		}
 
-		public Task<Student> ChangeLastName(string firstName, string originalLastName, string newLastName)
+		public async Task<Student> ChangeLastName(string firstName, string originalLastName, string newLastName)
 		{
-			throw new NotImplementedException();
+			var studentToChange = await _studentsRepository.GetStudent(firstName, originalLastName);
+			if(studentToChange != null)
+            {
+				var student = await _studentsRepository.ChangeLastName(studentToChange.Id, newLastName);
+				return student;
+			}
+			return null;
 		}
 
-		public Task<Student> CreateStudent(Student student)
+		public async Task<Student> CreateStudent(Student student)
 		{
-			throw new NotImplementedException();
+			return await _studentsRepository.CreateStudent(student);
 		}
 
-		public Task<Student> GetStudent(int id)
+		public async Task<Student> GetStudent(int id)
 		{
-			throw new NotImplementedException();
+			var student = await _studentsRepository.GetStudent(id);
+			if(student == null)
+            {
+				throw new NotFoundException("Student(id) not found");
+            }
+			return student;
 		}
 
-		public Task<Student> GetStudent(string firstName, string lastName)
+		public async Task<Student> GetStudent(string firstName, string lastName)
 		{
-			throw new NotImplementedException();
+			var student = await _studentsRepository.GetStudent(firstName, lastName);
+			if (student == null)
+			{
+				throw new NotFoundException("Student(first,last) not found");
+			}
+			return student;
 		}
 	}
 }
