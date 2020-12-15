@@ -21,6 +21,5 @@ namespace CE3.Service.Data
 
 		int SaveChanges();
 		Task<int> SaveChangesAsync();
-
-	}
+    }
 }
