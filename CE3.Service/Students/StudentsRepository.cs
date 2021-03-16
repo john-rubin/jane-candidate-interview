@@ -19,58 +19,29 @@ namespace CE3.Service.Students
 	{
 		private readonly IUniversityDbFactory _universityDbFactory;
 
-        public StudentsRepository(IUniversityDbFactory universityDbFactory)
+		public StudentsRepository(IUniversityDbFactory universityDbFactory)
 		{
 			_universityDbFactory = universityDbFactory;
-        }
-
-		public async Task<Student> ChangeLastName(int id, string newLastName)
-		{
-            using (var dbContext = _universityDbFactory.GetDbContext())
-            {
-                var student = await dbContext.Students.FirstOrDefaultAsync(x => x.Id == id);
-                if (student == null)
-                {
-                    return null;
-                }
-
-                student.LastName = newLastName;
-                await dbContext.SaveChangesAsync();
-
-                return student;
-            }
 		}
 
-		public async Task<Student> CreateStudent(Student student)
-        {
-            using (var dbContext = _universityDbFactory.GetDbContext())
-            {
-                if (student == null)
-                    return null;
-
-                dbContext.Students.Add(student);
-                await dbContext.SaveChangesAsync();
-
-                return student;
-			}
-        }
-
-		public async Task<Student> GetStudent(int id)
+		public Task<Student> ChangeLastName(int id, string newLastName)
 		{
-            using (var dbContext = _universityDbFactory.GetDbContext())
-            {
-                var student = await dbContext.Students.FirstOrDefaultAsync(x => x.Id == id);
-				return student;
-            }
+			throw new NotImplementedException();
 		}
 
-		public async Task<Student> GetStudent(string firstName, string lastName)
+		public Task<Student> CreateStudent(Student student)
 		{
-            using (var dbContext = _universityDbFactory.GetDbContext())
-            {
-                var student = await dbContext.Students.FirstOrDefaultAsync(x => x.FirstName == firstName && x.LastName == lastName);
-                return student;
-            }
+			throw new NotImplementedException();
+		}
+
+		public Task<Student> GetStudent(int id)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<Student> GetStudent(string firstName, string lastName)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }
