@@ -1,13 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using CE3.Service.Data;
-using CE3.Service.Exceptions;
-using CE3.Service.Students;
-using CE3.Service.Tests.Data;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace CodingExercise.Service.Tests
+﻿namespace CodingExercise.Service.Tests
 {
 	[TestClass]
 	public class StudentsServiceTests
@@ -74,7 +65,7 @@ namespace CodingExercise.Service.Tests
 		[TestMethod]
 		public async Task ChangeLastName_Success()
 		{
-			var student = _universityDbContext.Students.Add(new Student() { FirstName = "Student", LastName = "Original" });
+			var student = _universityDbContext.Students.Add(new Student() { FirstName = "Student", LastName = "Original" }).Entity;
 			_universityDbContext.SaveChanges();
 
 			await _studentsService.ChangeLastName(student.FirstName, student.LastName, "New");
@@ -90,8 +81,8 @@ namespace CodingExercise.Service.Tests
 		[ExpectedException(typeof(InvalidOperationException))]
 		public async Task ChangeLastName_CreatesDuplicateThrowsException()
 		{
-			var student1 = _universityDbContext.Students.Add(new Student() { FirstName = "Student", LastName = "One" });
-			var student2 = _universityDbContext.Students.Add(new Student() { FirstName = "Student", LastName = "Two" });
+			var student1 = _universityDbContext.Students.Add(new Student() { FirstName = "Student", LastName = "One" }).Entity;
+			var student2 = _universityDbContext.Students.Add(new Student() { FirstName = "Student", LastName = "Two" }).Entity;
 			_universityDbContext.SaveChanges();
 
 			await _studentsService.ChangeLastName(student1.FirstName, student1.LastName, "Two");

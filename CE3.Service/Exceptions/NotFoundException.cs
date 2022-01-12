@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace CE3.Service.Exceptions
+namespace CodingExercise.Service.Exceptions
 {
 	public class NotFoundException : Exception
 	{

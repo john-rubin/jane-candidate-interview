@@ -1,17 +1,11 @@
-﻿using System;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using CE3.Service.Data;
-
-namespace CE3.Service.Students
+﻿namespace CodingExercise.Data.Repositories
 {
 	public interface IStudentsRepository
 	{
 		Task<Student> CreateStudent(Student student);
 		Task<Student> GetStudent(int id);
-		Task<Student> GetStudent(String firstName, String lastName);
-		Task<Student> ChangeLastName(int id, String newLastName);
+		Task<Student> GetStudent(string firstName, string lastName);
+		Task<Student> ChangeLastName(int id, string newLastName);
 
 	}
 
@@ -29,9 +23,13 @@ namespace CE3.Service.Students
 			throw new NotImplementedException();
 		}
 
-		public Task<Student> CreateStudent(Student student)
+		public async Task<Student> CreateStudent(Student student)
 		{
-			throw new NotImplementedException();
+			using var db = _universityDbFactory.GetDbContext();
+			var result = db.Students.Add(student);
+			await db.SaveChangesAsync();
+
+			return result.Entity;
 		}
 
 		public Task<Student> GetStudent(int id)

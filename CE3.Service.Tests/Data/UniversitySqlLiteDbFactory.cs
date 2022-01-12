@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CE3.Service.Data;
 
-namespace CE3.Service.Tests.Data
+namespace CodingExercise.Service.Tests.Data
 {
 	public class UniversitySqlLiteDbFactory : IUniversityDbFactory
 	{

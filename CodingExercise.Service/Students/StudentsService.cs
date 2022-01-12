@@ -1,15 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
-using CE3.Service.Exceptions;
-
-namespace CE3.Service.Students
+﻿namespace CodingExercise.Service.Students
 {
 	public interface IStudentsService
 	{
 		Task<Student> CreateStudent(Student student);
 		Task<Student> GetStudent(int id);
-		Task<Student> GetStudent(String firstName, String lastName);
-		Task<Student> ChangeLastName(String firstName, String originalLastName, String newLastName);
+		Task<Student> GetStudent(string firstName, string lastName);
+		Task<Student> ChangeLastName(string firstName, string originalLastName, string newLastName);
 	}
 
 	public class StudentsService : IStudentsService

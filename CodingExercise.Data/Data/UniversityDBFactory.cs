@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace CE3.Service.Data
+﻿namespace CodingExercise.Data
 {
 	public interface IUniversityDbFactory
 	{

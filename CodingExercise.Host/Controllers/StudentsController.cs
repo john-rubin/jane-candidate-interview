@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Web.Http;
-using CE3.Models;
-using CE3.Service.Students;
-
-namespace CodingExercise.Controllers
+﻿namespace CodingExercise.Controllers
 {
-    public class StudentsController : ApiController
+	[Route("api/students")]
+    public class StudentsController : ControllerBase
     {
 	    private readonly IStudentsService _studentsService;
 
@@ -17,29 +11,29 @@ namespace CodingExercise.Controllers
 	    }
 
 		[HttpGet]
-		[Route("api/Students")]
+		[Route("all")]
 		public IEnumerable<string> Get()
         {
 	        throw new NotImplementedException();
         }
 
 	    [HttpGet]
-	    [Route("api/Students/{id}")]
-	    public async Task<Student> Get([FromUri]int id)
+	    [Route("{id}")]
+	    public async Task<Student> Get([FromQuery]int id)
 	    {
 		    return await _studentsService.GetStudent(id);
 		}
 
 	    [HttpGet]
-	    [Route("api/Students/{firstName}/{lastName}")]
-	    public async Task<Student> Get(String firstName, String lastName)
+	    [Route("{firstName}/{lastName}")]
+	    public async Task<Student> Get(string firstName, string lastName)
 	    {
 		    return await _studentsService.GetStudent(firstName, lastName);
 	    }
 
 
 		[HttpPost]
-		[Route("api/Students")]
+		[Route("")]
 		public Task<Student> CreateStudent(CreateStudentRequest request)
 		{
 			return _studentsService.CreateStudent(
@@ -50,7 +44,7 @@ namespace CodingExercise.Controllers
 		}
 
 		[HttpPut]
-		[Route("api/Students")]
+		[Route("")]
 		public Task<Student> Put(ChangeStudentLastNameRequest request)
 		{
 			return _studentsService.ChangeLastName(request.FirstName, request.OriginalLastName, request.NewLastName);

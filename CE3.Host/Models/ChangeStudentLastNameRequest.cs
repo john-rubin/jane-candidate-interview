@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
-namespace CE3.Models
+namespace CodingExercise.Data.Entities
 {
 	public class ChangeStudentLastNameRequest
 	{

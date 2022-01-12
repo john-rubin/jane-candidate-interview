@@ -1,12 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using CE3.Service.Data;
-using CE3.Service.Students;
-using CE3.Service.Tests.Data;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace CodingExercise.Service.Tests
+﻿namespace CodingExercise.Service.Tests
 {
 	[TestClass]
 	public class StudentsRepositoryTests
@@ -38,7 +30,7 @@ namespace CodingExercise.Service.Tests
 		[TestMethod]
 		public async Task GetStudent_Success()
 		{
-			var student = _universityDbContext.Students.Add(new Student() {FirstName = "Test", LastName = "Get"});
+			var student = _universityDbContext.Students.Add(new Student() {FirstName = "Test", LastName = "Get"}).Entity;
 			_universityDbContext.SaveChanges();
 			var retrievedStudent = await _studentRepository.GetStudent(student.Id);
 
@@ -51,7 +43,7 @@ namespace CodingExercise.Service.Tests
 		[TestMethod]
 		public async Task UpdateStudent_Success()
 		{
-			var student = _universityDbContext.Students.Add(new Student() { FirstName = "Name", LastName = "Original" });
+			var student = _universityDbContext.Students.Add(new Student() { FirstName = "Name", LastName = "Original" }).Entity;
 			_universityDbContext.SaveChanges();
 
 			var x = await _studentRepository.ChangeLastName(student.Id, "New");
